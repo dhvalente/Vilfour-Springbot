@@ -24,21 +24,5 @@ public class AverageCalculator {
         Double period = (double) student.getGradesStudent().size();
         return getTotal(student) / period;
     }
-
-
-/*
-    public static void main(String[] args) {
-
-        List<Grades> grades = new ArrayList<>();
-        Grades grades1 = new Grades(1, LocalDateTime.now(), 7.0, 4, null, null, null);
-        Grades grades2 = new Grades(2, LocalDateTime.now(), 8.0, 4, null, null, null);
-        grades.add(grades1);
-        grades.add(grades2);
-
-        Student student = new Student(grades);
-
-        System.out.println(getAverage(student));
-
-
-    }*/
+    
 }
