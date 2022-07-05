@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,7 +24,7 @@ public class Grades  implements Serializable {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-   private LocalDate date;
+   private LocalDateTime date = LocalDateTime.now();
 
    private Double grade;
 
@@ -33,10 +35,11 @@ public class Grades  implements Serializable {
    @JoinColumn(name = "subject_id")
    private Subject subject;
 
-   @JsonIgnore
+
    @ManyToOne
-   @JoinColumn(name = "id_person")
+   @JoinColumn(name = "id_student")
    private Student student;
+
 
    @ManyToOne
    @JoinColumn(name = "id_teacher")

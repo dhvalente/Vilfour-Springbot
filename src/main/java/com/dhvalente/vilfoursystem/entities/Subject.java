@@ -1,11 +1,14 @@
 package com.dhvalente.vilfoursystem.entities;
 
+import com.dhvalente.vilfoursystem.enums.PeriodEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,14 +26,15 @@ public class Subject implements Serializable {
     private String name;
 
     //Bimestre, Trimestre, Semestre
-    private Enum period;
+    private PeriodEnum period;
 
-    @ManyToMany(mappedBy = "subjectList")
-    private List<Teacher> teacherList;
+   /* @ManyToMany(mappedBy = "subjectList")
+    private List<Teacher> teacherList = new ArrayList<>();*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Grades> gradesList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "subject")
-    private List<Grades> gradesList;
-    @JoinColumn(name = "student_subject_id")
-    @ManyToMany
-    private List<Student> studentSubjectList;
+   /* @ManyToMany
+    @JoinTable(name = "tb_subject_student",joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> studentSubjectList = new ArrayList<>();*/
 }

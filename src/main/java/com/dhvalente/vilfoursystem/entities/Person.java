@@ -23,8 +23,7 @@ public class Person implements Serializable {
     private String email;
     private String cellNumber;
     private String cpf;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_endereco")
     private Address address;
 
