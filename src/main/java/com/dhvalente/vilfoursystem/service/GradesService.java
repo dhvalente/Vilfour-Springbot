@@ -3,9 +3,13 @@ package com.dhvalente.vilfoursystem.service;
 import com.dhvalente.vilfoursystem.dtos.GradesDTO;
 import com.dhvalente.vilfoursystem.dtos.SubjectDTO;
 import com.dhvalente.vilfoursystem.entities.Grades;
+import com.dhvalente.vilfoursystem.entities.Student;
 import com.dhvalente.vilfoursystem.entities.Subject;
+import com.dhvalente.vilfoursystem.entities.Teacher;
 import com.dhvalente.vilfoursystem.exceptions.GradesNotFoundException;
+import com.dhvalente.vilfoursystem.exceptions.StudentNotFoundException;
 import com.dhvalente.vilfoursystem.exceptions.SubjectNotFoundException;
+import com.dhvalente.vilfoursystem.exceptions.TeacherNotFoundException;
 import com.dhvalente.vilfoursystem.repository.GradesRepository;
 import com.dhvalente.vilfoursystem.repository.SubjectRepository;
 import org.modelmapper.ModelMapper;
@@ -19,10 +23,21 @@ public class GradesService {
 
     @Autowired
     private GradesRepository gradesRepository;
+
+    @Autowired
+    private TeacherService teacherService;
+    @Autowired
+    private StudentService studentService;
+
     @Autowired
     private ModelMapper modelMapper;
 
-    public Grades create(GradesDTO gradesDTO) {
+    public Grades create(GradesDTO gradesDTO) throws TeacherNotFoundException, StudentNotFoundException {
+        Teacher teacher = teacherService.findById(gradesDTO.getTeacher().getId());
+        teacher.getStudentList().add(gradesDTO.getStudent());
+        teacher.getSubjectList().add(gradesDTO.getSubject());
+        Student student = studentService.findById(gradesDTO.getStudent().getId());
+        student.getStudentSubjectList().add(gradesDTO.getSubject());
         return gradesRepository.save(modelMapper.map(gradesDTO, Grades.class));
     }
 /*

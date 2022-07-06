@@ -3,7 +3,9 @@ package com.dhvalente.vilfoursystem.controller;
 import com.dhvalente.vilfoursystem.dtos.GradesDTO;
 import com.dhvalente.vilfoursystem.dtos.TeacherDTO;
 import com.dhvalente.vilfoursystem.exceptions.GradesNotFoundException;
+import com.dhvalente.vilfoursystem.exceptions.StudentNotFoundException;
 import com.dhvalente.vilfoursystem.exceptions.SubjectNotFoundException;
+import com.dhvalente.vilfoursystem.exceptions.TeacherNotFoundException;
 import com.dhvalente.vilfoursystem.service.GradesService;
 import com.dhvalente.vilfoursystem.service.TeacherService;
 import com.dhvalente.vilfoursystem.util.ResponseModel;
@@ -25,7 +27,7 @@ public class GradesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> create(@RequestBody GradesDTO gradesDTO) {
+    public ResponseEntity<Object> create(@RequestBody GradesDTO gradesDTO) throws TeacherNotFoundException, StudentNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(gradesService.create(gradesDTO));
     }
 

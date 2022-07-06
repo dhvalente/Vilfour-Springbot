@@ -18,13 +18,14 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "tb_teacher")
 public class Teacher extends Person implements Serializable {
-   /* @ManyToMany
-    @JoinTable(name = "tb_teacher_student",joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<Student> studentList = new ArrayList<>();
-
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "tb_teacher_subject",joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
-    private List<Subject> subjectList = new ArrayList<>();*/
+    @JoinTable(name = "tb_teacher_students", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> studentList = new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "tb_teacher_subjects", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> subjectList = new ArrayList<>();
     @JsonIgnore
     @OneToMany(mappedBy = "teacher")
     private List<Grades> gradesList = new ArrayList<>();

@@ -25,16 +25,15 @@ public class Subject implements Serializable {
 
     private String name;
 
-    //Bimestre, Trimestre, Semestre
     private PeriodEnum period;
 
-   /* @ManyToMany(mappedBy = "subjectList")
-    private List<Teacher> teacherList = new ArrayList<>();*/
+    @ManyToMany(mappedBy = "subjectList")
+    private List<Teacher> teacherList = new ArrayList<>();
+
     @JsonIgnore
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Grades> gradesList = new ArrayList<>();
 
-   /* @ManyToMany
-    @JoinTable(name = "tb_subject_student",joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<Student> studentSubjectList = new ArrayList<>();*/
+    @ManyToMany(mappedBy = "studentSubjectList")
+    private List<Student> subjectStudentList = new ArrayList<>();
 }

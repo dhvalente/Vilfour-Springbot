@@ -17,12 +17,11 @@ import java.util.List;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "id_student")
 public class Student extends Person implements Serializable {
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "tb_student_subjects",joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> studentSubjectList = new ArrayList<>();
 
-   /* @ManyToMany(mappedBy = "studentList")
-    private List<Teacher> teacherStudentList = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "studentSubjectList")
-    private List<Subject> subjectStudentList = new ArrayList<>();*/
     @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Grades> gradesStudent = new ArrayList<>();
