@@ -6,26 +6,26 @@ import java.util.Map;
 
 public enum PeriodEnum {
 
-    BIMESTER("Bimestre", 1),
-    TRIMESTER("Trismestre", 2),
-    FOURMASTER("Quadrimestre", 3),
-    SEMESTER("Semestre", 4);
+    BIMESTER("Bimestre", 2),
+    TRIMESTER("Trismestre", 3),
+    FOURMASTER("Quadrimestre", 4),
+    SEMESTER("Semestre", 6);
 
 
     private final String period;
-    private final Integer periodId;
+    private final Integer value;
 
-    private PeriodEnum(String period, Integer periodId) {
+    private PeriodEnum(String period, Integer value) {
         this.period = period;
-        this.periodId = periodId;
+        this.value = value;
     }
 
     public String getPeriod() {
         return period;
     }
 
-    public Integer getPeriodId() {
-        return periodId;
+    public Integer getValue() {
+        return value;
     }
 
     private static final Map<String, PeriodEnum> Lookup = new HashMap<String, PeriodEnum>();
@@ -41,7 +41,7 @@ public enum PeriodEnum {
 
     public static PeriodEnum getByPaymentMethodId(Integer periodId) {
         for (PeriodEnum keyValue : EnumSet.allOf(PeriodEnum.class))
-            if (keyValue.getPeriodId().equals(periodId))
+            if (keyValue.getValue().equals(periodId))
                 return keyValue;
         return null;
     }

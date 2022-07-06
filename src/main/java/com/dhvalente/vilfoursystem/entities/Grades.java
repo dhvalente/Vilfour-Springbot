@@ -26,6 +26,7 @@ public class Grades  implements Serializable {
 
    private LocalDateTime date = LocalDateTime.now();
 
+   //List?
    private Double grade;
 
    //1 , 2 , 3
